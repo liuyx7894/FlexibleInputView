@@ -13,6 +13,7 @@
 @property (assign, nonatomic) NSInteger rawHeight;
 @property (assign, nonatomic) CGFloat latestHeight;
 @property (assign, nonatomic) CGFloat edgeHeight;
+@property (assign, nonatomic) BOOL isShowing;
 @property (assign, nonatomic) CGFloat btnWidth;
 @property (strong, nonatomic) UIButton *sendBtn;
 @property (strong, nonatomic) UITextView *textView;
@@ -49,7 +50,6 @@
      
         [self addSubview:_textView];
         
-        
         [self updateFramesWithHeight:_textView fixedHeight:fixedHeight];
 
         [self addKeyboardListener];
@@ -67,10 +67,18 @@
 
 -(void)addKeyboardListener{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardShowing:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardChangingFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onKeyboardHiding:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 -(void)onKeyboardShowing:(NSNotification *)sender{
+
+    if(_isShowing){
+        return;
+    }
+    _isShowing = true;
     CGRect keyboardFrame = [sender.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
 
     [UIView animateWithDuration:0.3 animations:^{
@@ -79,25 +87,48 @@
                                   self.frame.size.width,
                                   self.frame.size.height)];
     }];
-    
-    if(_delegate != nil && [_delegate respondsToSelector:@selector(onKeyboardRectChanging:isShowing:)]){
-        [_delegate onKeyboardRectChanging:keyboardFrame isShowing:true];
+    if(_delegate != nil && [_delegate respondsToSelector:@selector(onKeyboardHeightChanging: isShowing:)]){
+        [_delegate onKeyboardHeightChanging:keyboardFrame.size.height isShowing:true];
     }
     
 }
 
--(void)onKeyboardHiding:(NSNotification *)sender{
-    CGRect keyboardFrame = [sender.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+-(void)onKeyboardChangingFrame:(NSNotification *)sender{
+    CGRect startFrame = [sender.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    CGRect endFrame = [sender.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat offset = startFrame.size.height - endFrame.size.height;
+    if(offset == 0){
+        return;
+    }
 
     [UIView animateWithDuration:0.3 animations:^{
         [self setFrame:CGRectMake(self.frame.origin.x,
-                                  self.frame.origin.y+keyboardFrame.size.height*2,
+                                  self.frame.origin.y+offset,
                                   self.frame.size.width,
                                   self.frame.size.height)];
     }];
     
-    if(_delegate != nil && [_delegate respondsToSelector:@selector(onKeyboardRectChanging:isShowing:)]){
-        [_delegate onKeyboardRectChanging:keyboardFrame isShowing:false];
+    if(_delegate != nil && [_delegate respondsToSelector:@selector(onKeyboardHeightChanging: isShowing:)]){
+        [_delegate onKeyboardHeightChanging:-offset isShowing:true];
+    }
+}
+
+-(void)onKeyboardHiding:(NSNotification *)sender{
+    if(!_isShowing){
+        return;
+    }
+    _isShowing = false;
+    CGRect keyboardFrame = [sender.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+
+    [UIView animateWithDuration:0.3 animations:^{
+        [self setFrame:CGRectMake(self.frame.origin.x,
+                                  self.frame.origin.y+keyboardFrame.size.height,
+                                  self.frame.size.width,
+                                  self.frame.size.height)];
+    }];
+    
+    if(_delegate != nil && [_delegate respondsToSelector:@selector(onKeyboardHeightChanging: isShowing:)]){
+        [_delegate onKeyboardHeightChanging:-keyboardFrame.size.height isShowing:false];
     }
 }
 

@@ -20,8 +20,12 @@
     [super viewDidLoad];
 
     _comments = [[NSMutableArray alloc]init];
-    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     
+    for (int i=0;i<20; i++) {
+        [_comments addObject:@"test"];
+    }
+    
+    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     FlexibleInputView *bar = [[FlexibleInputView alloc]initWithOrigin:CGPointMake(0, [UIScreen mainScreen].bounds.size.height-44) height:44];
     [bar setDelegate:self];
     [bar setBackgroundColor:defaultBGColor];
@@ -38,14 +42,14 @@
     return [_comments count];
 }
 
--(void)onKeyboardRectChanging:(CGRect)rect isShowing:(BOOL)isShowing{
+-(void)onKeyboardHeightChanging:(CGFloat)height isShowing:(BOOL)isShowing{
     
     [UIView animateWithDuration:0.3 animations:^{
-        if(isShowing){
-            [_tableView setContentOffset:CGPointMake(0, _tableView.contentOffset.y + rect.size.height)];
-        }else{
-            [_tableView setContentOffset:CGPointMake(0, _tableView.contentOffset.y - rect.size.height)];
-        }
+        CGRect frame = _tableView.frame;
+
+        frame.origin.y-=height;
+        
+        [_tableView setFrame:frame];
     }];
     
 }
@@ -57,6 +61,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
     // Dispose of any resources that can be recreated.
 }
 

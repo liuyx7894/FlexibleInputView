@@ -17,7 +17,7 @@
 -(void)onSendBtnTapped:(UITextView *)textView text:(NSString *)text;
 
 @optional
--(void)onKeyboardRectChanging:(CGRect)rect isShowing:(BOOL)isShowing;
+-(void)onKeyboardHeightChanging:(CGFloat)height isShowing:(BOOL)isShowing;
 
 @end
 

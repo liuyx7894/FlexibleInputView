@@ -212,6 +212,7 @@
 				TargetAttributes = {
 					0B2BC73B1D9C1A720087D15B = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 76QAJ8967X;
 						ProvisioningStyle = Automatic;
 					};
 					0B2BC7541D9C1A730087D15B = {
@@ -376,7 +377,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -417,7 +418,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -428,6 +429,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 76QAJ8967X;
 				INFOPLIST_FILE = FlexibleInputView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = louis.FlexibleInputView;
@@ -439,6 +441,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 76QAJ8967X;
 				INFOPLIST_FILE = FlexibleInputView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = louis.FlexibleInputView;
@@ -511,6 +514,7 @@
 				0B2BC76B1D9C1A730087D15B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0B2BC76C1D9C1A730087D15B /* Build configuration list for PBXNativeTarget "FlexibleInputViewTests" */ = {
 			isa = XCConfigurationList;
@@ -519,6 +523,7 @@
 				0B2BC76E1D9C1A730087D15B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0B2BC76F1D9C1A730087D15B /* Build configuration list for PBXNativeTarget "FlexibleInputViewUITests" */ = {
 			isa = XCConfigurationList;
@@ -527,6 +532,7 @@
 				0B2BC7711D9C1A730087D15B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
